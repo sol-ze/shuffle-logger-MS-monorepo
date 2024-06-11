@@ -1,6 +1,7 @@
 package com.sol.serviceshuffle.rest;
 
 import com.sol.serviceshuffle.model.ShuffleRequest;
+import com.sol.serviceshuffle.service.LogService;
 import com.sol.serviceshuffle.service.ShuffleService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +18,13 @@ import java.util.ArrayList;
 @RequestMapping("/api")
 public class ShuffleRestController {
 
-    public ShuffleService shuffleService;
+    public final ShuffleService shuffleService;
+    private final LogService logService;
 
     @Autowired
-    public ShuffleRestController(ShuffleService shuffleService) {
+    public ShuffleRestController(ShuffleService shuffleService, LogService logService) {
         this.shuffleService = shuffleService;
+        this.logService = logService;
     }
 
     @PostMapping("/shuffle")
@@ -29,6 +32,7 @@ public class ShuffleRestController {
         int number = shuffleRequest.getNumber();
 
         ArrayList<Integer> array = shuffleService.shuffle(number);
+        logService.createAndSendLog(this.getClass().getName() + "#shuffle", "POST", "Shuffled numbers up to: " + number);
         return ResponseEntity.ok(array);
     }
 }
