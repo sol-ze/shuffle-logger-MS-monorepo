@@ -8,6 +8,7 @@ Micro services:
 _______________________________________________________________________
 **Endpoints [service-shuffle]**
 1- POST /api/shuffle 
+
 **Description:**
 Gets a number and returns a shuffled array from 1 to this number.
 without duplications of numbers.
@@ -21,6 +22,7 @@ JSON body contains "number" - number shoud be between 1 - 1000 (including)
 }
 
 **Response:** OK 200: Array of numbers [2,1,4,7,3,6,8,10,9,5]
+
 **Other possible responses in case of error:**
 - BAD REQUEST 400: validation error
 - INTERNAL SERVER ERROR 500: other exceptions
@@ -28,10 +30,13 @@ JSON body contains "number" - number shoud be between 1 - 1000 (including)
 _______________________________________________________________________
 **Endpoints [service-log]**
 1- POST /api/log  
+
 **Description:** Gets a request object from service-shuffle and log it
+
 **Request:** JSON body contains Log object that created in service-shuffle
 
 **Response:** 200 OK
+
 **Other possible responses in case of error:**
 - BAD REQUEST 400: validation error
 - INTERNAL SERVER ERROR 500: other exceptions
