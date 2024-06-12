@@ -1,8 +1,10 @@
 package com.sol.serviceshuffle.service;
 
 import com.sol.serviceshuffle.common.Log;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 @Service
@@ -55,5 +57,17 @@ public class LogServiceImpl implements LogService{
                 .retrieve()
                 .toBodilessEntity()
                 .subscribe();
+    }
+
+    @Override
+    public void logRequestDetails(HttpServletRequest request, String classAndMethodName, String message) {
+        try {
+            String url = request.getRequestURI();
+            String httpMethod = request.getMethod();
+            createAndSendLog(url, classAndMethodName, httpMethod, message);
+        } catch(Exception ex) {
+            //Send notification to responsible team that service-logger could be down
+            System.out.println(ex.getMessage());
+        }
     }
 }

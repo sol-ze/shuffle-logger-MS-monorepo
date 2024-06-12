@@ -1,6 +1,6 @@
 package com.sol.serviceshuffle.common;
 
-import com.sol.serviceshuffle.service.LogServiceImpl;
+import com.sol.serviceshuffle.service.LogService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,10 +15,10 @@ import java.util.Map;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-    private final LogServiceImpl logService;
+    private final LogService logService;
 
     @Autowired
-    public GlobalExceptionHandler(LogServiceImpl logService) {
+    public GlobalExceptionHandler(LogService logService) {
         this.logService = logService;
     }
 
