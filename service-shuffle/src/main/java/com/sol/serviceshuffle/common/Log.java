@@ -5,10 +5,10 @@ public class Log {
     private String ServiceName;
     private String httpMethod;
     private String methodName;
-    private String host;
+    private String url;
     private String message;
     private String threadId;
-    private String stackTrace;
+    private String errorMessage;
 
     public Log() {
     }
@@ -45,12 +45,12 @@ public class Log {
         this.methodName = methodName;
     }
 
-    public String getHost() {
-        return host;
+    public String getUrl() {
+        return url;
     }
 
-    public void setHost(String host) {
-        this.host = host;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getMessage() {
@@ -69,12 +69,12 @@ public class Log {
         this.threadId = threadId;
     }
 
-    public String getStackTrace() {
-        return stackTrace;
+    public String getErrorMessage() {
+        return errorMessage;
     }
 
-    public void setStackTrace(String stackTrace) {
-        this.stackTrace = stackTrace;
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
     @Override
@@ -84,10 +84,10 @@ public class Log {
                 ", ServiceName='" + ServiceName + '\'' +
                 ", MethodName='" + methodName + '\'' +
                 ", HTTPMethod='" + httpMethod + '\'' +
-                ", host='" + host + '\'' +
+                ", url='" + url + '\'' +
                 ", message='" + message + '\'' +
                 ", threadId='" + threadId + '\'' +
-                ", stackTrace='" + stackTrace + '\'' +
+                ", errorMessage='" + errorMessage + '\'' +
                 '}';
     }
 }

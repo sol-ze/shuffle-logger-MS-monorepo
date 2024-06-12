@@ -12,7 +12,6 @@ public class WebClientConfig {
 
     @Bean
     public WebClient webClient() {
-        System.out.println("Service Log URL: " + serviceLogUrl);
         return WebClient.builder()
                 .baseUrl(serviceLogUrl)
                 .build();
