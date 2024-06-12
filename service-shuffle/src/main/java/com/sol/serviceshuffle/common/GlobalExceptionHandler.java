@@ -66,8 +66,8 @@ public class GlobalExceptionHandler {
         logService.createAndSendLog(url, className + "#" + methodName, httpMethod, "Exception occurred", exc);
 
         ErrorResponse err = new ErrorResponse();
-        err.setStatus(HttpStatus.BAD_REQUEST.value());
+        err.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         err.setMessage("Bad Request");
-        return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(err, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
