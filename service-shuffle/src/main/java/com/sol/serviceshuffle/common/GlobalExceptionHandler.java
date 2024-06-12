@@ -22,6 +22,14 @@ public class GlobalExceptionHandler {
         this.logService = logService;
     }
 
+    /**
+     * Validation exception handler, the exception will be sent to service-log
+     * it's important to check Log object in the request body in order to secure it from possible injections attacks
+     * @param ex
+     * @param request
+     * @param handlerMethod
+     * @return
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex, HttpServletRequest request, HandlerMethod handlerMethod) {
 
@@ -30,6 +38,7 @@ public class GlobalExceptionHandler {
         String className = handlerMethod.getBeanType().getSimpleName();
         String methodName = handlerMethod.getMethod().getName();
 
+        // Send logs including exception details
         logService.createAndSendLog(url, className + "#" + methodName, httpMethod, "Validation error", ex);
 
         Map<String, String> errors = new HashMap<>();
@@ -38,6 +47,14 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(errors);
     }
 
+    /**
+     * Global Exception handler, in case of exception it will return an ErrorResponse to the user
+     * and send logs info to service-log including exception details
+     * @param exc
+     * @param request
+     * @param handlerMethod
+     * @return ResponseEntity<ErrorResponse>
+     */
     @ExceptionHandler
     public ResponseEntity<ErrorResponse> handleException(Exception exc, HttpServletRequest request, HandlerMethod handlerMethod) {
         String url = request.getRequestURI();
@@ -45,6 +62,7 @@ public class GlobalExceptionHandler {
         String className = handlerMethod.getBeanType().getSimpleName();
         String methodName = handlerMethod.getMethod().getName();
 
+        // Send logs including exception details
         logService.createAndSendLog(url, className + "#" + methodName, httpMethod, "Exception occurred", exc);
 
         ErrorResponse err = new ErrorResponse();

@@ -18,8 +18,14 @@ public class LoggerRestController {
         this.loggerService = loggerService;
     }
 
+    /**
+     * POST /api/log
+     * @param log object
+     * @return prints the logs, and returns empty response with HTTP status 200 in case everything is ok
+     */
     @PostMapping("/log")
     public ResponseEntity<Void> logRequest(@Valid @RequestBody Log log) {
+        // Prints logs in console, recommended to send the logs to a Database, and have saved logs
         loggerService.printLogs(log);
         return ResponseEntity.ok().build();
 

@@ -14,6 +14,12 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    /**
+     * Validation exception handler,
+     * it's important to check Log object in the request body in order to secure it from possible injections attacks
+     * @param ex
+     * @return ResponseEntity<ErrorResponse>
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidationExceptions(MethodArgumentNotValidException ex) {
         ErrorResponse error = new ErrorResponse();
@@ -24,6 +30,12 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * Global Exception handler, in case of exception it will return an ErrorResponse to the user
+     * and send logs info to service-log including exception details
+     * @param ex
+     * @return ResponseEntity<ErrorResponse>
+     */
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {
         ErrorResponse error = new ErrorResponse();
