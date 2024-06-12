@@ -27,10 +27,17 @@ public class ShuffleRestController {
         this.logService = logService;
     }
 
+    /**
+     * POST /api/shuffle
+     * @param shuffleRequest contains "number" between 1 and 1000
+     * @param request
+     * @return array with a size of number, containing shuffled numbers from 1 to number
+     */
     @PostMapping("/shuffle")
     public ResponseEntity<?> shuffle(@Valid @RequestBody ShuffleRequest shuffleRequest, HttpServletRequest request) {
         int number = shuffleRequest.getNumber();
         List<Integer> array = shuffleService.shuffle(number);
+        // log request details using Async
         logService.logRequestDetails(request, this.getClass().getName() + "#shuffle", "Shuffled numbers up to: " + number);
         return ResponseEntity.ok(array);
     }
