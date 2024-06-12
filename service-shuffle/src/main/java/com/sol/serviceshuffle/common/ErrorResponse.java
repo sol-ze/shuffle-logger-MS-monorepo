@@ -3,13 +3,13 @@ package com.sol.serviceshuffle.common;
 public class ErrorResponse {
     private int status;
     private String message;
-    private long timestamp;
-    public ErrorResponse() {}
 
-    public ErrorResponse(int status, String message, long timestamp) {
+    public ErrorResponse() {
+    }
+
+    public ErrorResponse(int status, String message) {
         this.status = status;
         this.message = message;
-        this.timestamp = timestamp;
     }
 
     public int getStatus() {
@@ -26,13 +26,5 @@ public class ErrorResponse {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public long getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
     }
 }

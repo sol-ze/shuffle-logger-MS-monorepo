@@ -14,6 +14,10 @@ public class WebClientConfig {
     public WebClient webClient() {
         return WebClient.builder()
                 .baseUrl(serviceLogUrl)
+                .filter((request, next) -> next.exchange(request)
+                        .doOnError(error -> System.out.println("Error occurred: " + error.getMessage())))
                 .build();
+
+
     }
 }

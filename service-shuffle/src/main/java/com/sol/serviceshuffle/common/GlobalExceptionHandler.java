@@ -50,7 +50,6 @@ public class GlobalExceptionHandler {
         ErrorResponse err = new ErrorResponse();
         err.setStatus(HttpStatus.BAD_REQUEST.value());
         err.setMessage("Bad Request");
-        err.setTimestamp(System.currentTimeMillis());
         return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
     }
 }

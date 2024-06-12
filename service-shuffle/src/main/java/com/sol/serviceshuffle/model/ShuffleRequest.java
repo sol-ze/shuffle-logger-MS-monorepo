@@ -9,7 +9,8 @@ public class ShuffleRequest {
     @Max(value = 1000, message = "Number must be between 1 and 1000")
     private int number;
 
-    public ShuffleRequest() {}
+    public ShuffleRequest() {
+    }
 
     public int getNumber() {
         return number;

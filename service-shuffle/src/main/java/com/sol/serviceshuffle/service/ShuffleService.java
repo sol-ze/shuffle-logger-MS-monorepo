@@ -1,8 +1,7 @@
 package com.sol.serviceshuffle.service;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface ShuffleService {
-    ArrayList<Integer> shuffle(int number);
-    String printList(ArrayList<?> list);
+    List<Integer> shuffle(int number);
 }

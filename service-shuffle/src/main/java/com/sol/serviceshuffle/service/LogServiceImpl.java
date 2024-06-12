@@ -4,11 +4,12 @@ import com.sol.serviceshuffle.common.Log;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
+
 @Service
-public class LogServiceImpl implements LogService{
+public class LogServiceImpl implements LogService {
     private final WebClient webClient;
 
     @Value("${spring.application.name}")
@@ -19,6 +20,7 @@ public class LogServiceImpl implements LogService{
     public LogServiceImpl(WebClient webClient) {
         this.webClient = webClient;
     }
+
     @Override
     public void createAndSendLog(String url, String methodName, String httpMethod, String message) {
         Log log = new Log();
@@ -56,6 +58,8 @@ public class LogServiceImpl implements LogService{
                 .bodyValue(log)
                 .retrieve()
                 .toBodilessEntity()
+                .doOnError(error -> System.out.println("Error sending log: " + error.getMessage()))
+                .onErrorResume(error -> Mono.empty())
                 .subscribe();
     }
 
@@ -65,8 +69,7 @@ public class LogServiceImpl implements LogService{
             String url = request.getRequestURI();
             String httpMethod = request.getMethod();
             createAndSendLog(url, classAndMethodName, httpMethod, message);
-        } catch(Exception ex) {
-            //Send notification to responsible team that service-logger could be down
+        } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
     }

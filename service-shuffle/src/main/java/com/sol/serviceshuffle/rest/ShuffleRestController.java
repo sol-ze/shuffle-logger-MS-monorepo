@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.ArrayList;
+import java.util.List;
 
 
 @RestController
@@ -31,8 +30,8 @@ public class ShuffleRestController {
     @PostMapping("/shuffle")
     public ResponseEntity<?> shuffle(@Valid @RequestBody ShuffleRequest shuffleRequest, HttpServletRequest request) {
         int number = shuffleRequest.getNumber();
-        ArrayList<Integer> array = shuffleService.shuffle(number);
-        logService.logRequestDetails(request, this.getClass().getName() + "#shuffle","Shuffled numbers up to: " + number);
+        List<Integer> array = shuffleService.shuffle(number);
+        logService.logRequestDetails(request, this.getClass().getName() + "#shuffle", "Shuffled numbers up to: " + number);
         return ResponseEntity.ok(array);
     }
 }
