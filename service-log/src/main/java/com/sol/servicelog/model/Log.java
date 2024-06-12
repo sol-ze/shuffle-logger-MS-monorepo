@@ -1,18 +1,22 @@
 package com.sol.servicelog.model;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Date;
 
 public class Log {
     private long timestamp;
     @NotBlank(message = "Service name cannot be blank")
+    @NotNull(message = "Service name cannot be blank")
     private String ServiceName;
 
-    @NotBlank(message = "Http Method cannot be blank")
+    @NotBlank(message = "Http Method cannot be blank or null")
+    @NotNull(message = "Http Method cannot be blank or null")
     private String httpMethod;
 
     @NotBlank(message = "Method name cannot be blank")
+    @NotNull(message = "Method name cannot be blank")
     private String methodName;
 
     private String url;

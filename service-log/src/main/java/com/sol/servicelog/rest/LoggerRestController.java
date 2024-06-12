@@ -20,7 +20,6 @@ public class LoggerRestController {
 
     @PostMapping("/log")
     public ResponseEntity<Void> logRequest(@Valid @RequestBody Log log) {
-
         loggerService.printLogs(log);
         return ResponseEntity.ok().build();
 
