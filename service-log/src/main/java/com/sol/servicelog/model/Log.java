@@ -1,13 +1,24 @@
 package com.sol.servicelog.model;
 
+import jakarta.validation.constraints.NotBlank;
+
+import java.util.Date;
+
 public class Log {
     private long timestamp;
+    @NotBlank(message = "Service name cannot be blank")
     private String ServiceName;
-    private String method;
-    private String host;
+
+    @NotBlank(message = "Http Method cannot be blank")
+    private String httpMethod;
+
+    @NotBlank(message = "Method name cannot be blank")
+    private String methodName;
+
+    private String url;
     private String message;
     private String threadId;
-    private String stackTrace;
+    private String errorMessage;
 
     public Log() {}
 
@@ -27,20 +38,28 @@ public class Log {
         ServiceName = serviceName;
     }
 
-    public String getMethod() {
-        return method;
+    public String getHttpMethod() {
+        return httpMethod;
     }
 
-    public void setMethod(String method) {
-        this.method = method;
+    public void setHttpMethod(String httpMethod) {
+        this.httpMethod = httpMethod;
     }
 
-    public String getHost() {
-        return host;
+    public String getMethodName() {
+        return methodName;
     }
 
-    public void setHost(String host) {
-        this.host = host;
+    public void setMethodName(String methodName) {
+        this.methodName = methodName;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getMessage() {
@@ -59,24 +78,25 @@ public class Log {
         this.threadId = threadId;
     }
 
-    public String getStackTrace() {
-        return stackTrace;
+    public String getErrorMessage() {
+        return errorMessage;
     }
 
-    public void setStackTrace(String stackTrace) {
-        this.stackTrace = stackTrace;
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
     @Override
     public String toString() {
         return "Log{" +
-                "timestamp=" + timestamp +
+                "timestamp=" + new Date(timestamp ) +
                 ", ServiceName='" + ServiceName + '\'' +
-                ", method='" + method + '\'' +
-                ", host='" + host + '\'' +
+                ", MethodName='" + methodName + '\'' +
+                ", HTTPMethod='" + httpMethod + '\'' +
+                ", url='" + url + '\'' +
                 ", message='" + message + '\'' +
                 ", threadId='" + threadId + '\'' +
-                ", stackTrace='" + stackTrace + '\'' +
+                ", errorMessage='" + errorMessage + '\'' +
                 '}';
     }
 }
